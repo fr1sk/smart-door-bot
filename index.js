@@ -55,9 +55,9 @@ app.post('/webhook/', function (req, res) {
             //sleep.sleep(1);
             //sendTextMessage(sender, "But I can ECHO your message 😄");
             //sleep.sleep(1);
-            sendTextMessage(sender, "🤖 " + text.substring(0, 200));
+            //sendTextMessage(sender, );
             //sleep.sleep(1);
-            sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
+            sendTextMessage(sender, "🤖 " + text.substring(0, 200)+"... Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
         }
         else if(event.message && event.message.sticker_id){
             sendTextMessage(sender, "Trying to unlock the door... 🔐");
