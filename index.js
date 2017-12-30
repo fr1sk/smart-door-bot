@@ -45,8 +45,16 @@ app.post('/webhook/', function (req, res) {
         console.log(event);
 	    if (event.message && event.message.text) {
 		    let text = event.message.text
-		    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-	    }
+		    sendTextMessage(sender, "echo: " + text.substring(0, 200) + " 🤖")
+        }
+        else if(event.message && event.message.sticker_id){
+            let res = unlockTheDoor();
+            if(res){
+                sendTextMessage(sender, "Door successfully unlocked! 🔑😊 ") 
+            } else {
+                sendTextMessage(sender, "I cannot unlock the door right now 🔑😢 ")  
+            }
+        }
     }
     res.sendStatus(200)
 })
@@ -73,10 +81,11 @@ function unlockTheDoor(){
         if(res.statusCode !== 200 ){
             console.log(res)
             console.log(res.statusCode);
-            return;
+            return false;
         }
         console.log("=== SUCCESS ===")
         console.log(res.statusCode);
+        return true;
         });
     });
 }
