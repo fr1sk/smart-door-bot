@@ -25,12 +25,13 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
-	res.send('Hello there, I am PandoraAI!');
+    res.send('Hello there, I am PandoraAI!');
+    unlockTheDoor("");
 })
 
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === 'open_my_box') {
-		res.send(req.query['hub.challenge'])
+        res.send(req.query['hub.challenge']);
 	}
 	res.send('Error, wrong token')
 });
@@ -48,6 +49,7 @@ app.post('/webhook/', function (req, res) {
 		    sendTextMessage(sender, "echo: " + text.substring(0, 200) + " 🤖")
         }
         else if(event.message && event.message.sticker_id){
+            sendTextMessage(sender, "Trying to unlock the door... 🔐");
             unlockTheDoor(sender);
         }
     }
