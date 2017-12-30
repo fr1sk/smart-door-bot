@@ -62,7 +62,7 @@ app.listen(app.get('port'), function() {
 
 
 
-function unlockTheDoor(sender){
+async function unlockTheDoor(sender){
     let result = IP.findById(process.env.id, (err, res) => {
         console.log(res.ip);
         let url = 'http://'+res.ip;
