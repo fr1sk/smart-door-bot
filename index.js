@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
 		    sendTextMessage(sender, "echo: " + text.substring(0, 200) + " 🤖")
         }
         else if(event.message && event.message.sticker_id){
-            unlockTheDoor();
+            unlockTheDoor(sender);
         }
     }
     res.sendStatus(200)
@@ -60,7 +60,7 @@ app.listen(app.get('port'), function() {
 
 
 
-function unlockTheDoor(unlocked){
+function unlockTheDoor(sender){
     let result = IP.findById(process.env.id, (err, res) => {
         console.log(res.ip);
         let url = 'http://'+res.ip;
