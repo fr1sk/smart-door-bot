@@ -15,6 +15,7 @@
     "express": "^4.16.2",
     "messenger-bot": "^2.4.0",
     "mongoose": "^5.0.0-rc0",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "sleep": "^5.1.1"
   }
 }

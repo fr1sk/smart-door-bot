@@ -4,7 +4,8 @@ require('dotenv').config()
 const express = require('express');
 const request = require('request');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const sleep = require('sleep');
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -29,6 +30,10 @@ app.get('/', function (req, res) {
     unlockTheDoor("");
 })
 
+app.get('/ping', function (req, res) {
+    res.send('I am alive!!! 😇');
+})
+
 app.get('/webhook/', function (req, res) {
 	if (req.query['hub.verify_token'] === 'open_my_box') {
         res.send(req.query['hub.challenge']);
@@ -47,15 +52,12 @@ app.post('/webhook/', function (req, res) {
 	    if (event.message && event.message.text) {
             let text = event.message.text
             sendTextMessage(sender, "Sorry, I am not smart yet to help you with that 😔");
-            setTimeout(function() {
-                sendTextMessage(sender, "But I can ECHO your message 😄");
-            }, 500);
-            setTimeout(function() {
-                sendTextMessage(sender, "🤖 " + text.substring(0, 200));
-            }, 500);
-            setTimeout(function() {
-                sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
-            }, 500);
+            sleep.sleep(1);
+            sendTextMessage(sender, "But I can ECHO your message 😄");
+            sleep.sleep(1);
+            sendTextMessage(sender, "🤖 " + text.substring(0, 200));
+            sleep.sleep(1);
+            sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
         }
         else if(event.message && event.message.sticker_id){
             sendTextMessage(sender, "Trying to unlock the door... 🔐");
