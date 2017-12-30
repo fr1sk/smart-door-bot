@@ -47,9 +47,15 @@ app.post('/webhook/', function (req, res) {
 	    if (event.message && event.message.text) {
             let text = event.message.text
             sendTextMessage(sender, "Sorry, I am not smart yet to help you with that 😔");
-            sendTextMessage(sender, "But I can ECHO your message 😄");
-            sendTextMessage(sender, "🤖 " + text.substring(0, 200));
-            sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
+            setTimeout(function() {
+                sendTextMessage(sender, "But I can ECHO your message 😄");
+            }, 500);
+            setTimeout(function() {
+                sendTextMessage(sender, "🤖 " + text.substring(0, 200));
+            }, 500);
+            setTimeout(function() {
+                sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
+            }, 500);
         }
         else if(event.message && event.message.sticker_id){
             sendTextMessage(sender, "Trying to unlock the door... 🔐");
