@@ -48,12 +48,7 @@ app.post('/webhook/', function (req, res) {
 		    sendTextMessage(sender, "echo: " + text.substring(0, 200) + " 🤖")
         }
         else if(event.message && event.message.sticker_id){
-            let res = unlockTheDoor();
-            if(res){
-                sendTextMessage(sender, "Door successfully unlocked! 🔑😊 ") 
-            } else {
-                sendTextMessage(sender, "I cannot unlock the door right now 🔑😢 ")  
-            }
+            unlockTheDoor();
         }
     }
     res.sendStatus(200)
@@ -65,7 +60,7 @@ app.listen(app.get('port'), function() {
 
 
 
-function unlockTheDoor(){
+function unlockTheDoor(unlocked){
     let result = IP.findById(process.env.id, (err, res) => {
         console.log(res.ip);
         let url = 'http://'+res.ip;
@@ -73,19 +68,21 @@ function unlockTheDoor(){
             url:     url,
             form:    { UNLOCK2: "on" }},
         function(err,res,body){
-        if(err){
-            console.log("=== ERROR ===");
-            console.log(err);
-            return;
-        }
-        if(res.statusCode !== 200 ){
-            console.log(res)
+            if(err){
+                console.log("=== ERROR ===");
+                console.log(err);
+                sendTextMessage(sender, "I cannot unlock the door right now 🔑😢 ")  
+                return;
+            }
+            if(res.statusCode !== 200 ){
+                console.log(res)
+                console.log(res.statusCode);
+                sendTextMessage(sender, "I cannot unlock the door right now 🔑😢 ")  
+                return;
+            }
+            console.log("=== SUCCESS ===")
             console.log(res.statusCode);
-            return false;
-        }
-        console.log("=== SUCCESS ===")
-        console.log(res.statusCode);
-        return true;
+            sendTextMessage(sender, "Door successfully unlocked! 🔑😊 ") 
         });
     });
 }
