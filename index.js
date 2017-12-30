@@ -45,8 +45,11 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         console.log(event);
 	    if (event.message && event.message.text) {
-		    let text = event.message.text
-		    sendTextMessage(sender, "echo: " + text.substring(0, 200) + " 🤖")
+            let text = event.message.text
+            sendTextMessage(sender, "Sorry, I am not smart yet to help you with that 😔");
+            sendTextMessage(sender, "But I can ECHO your message 😄");
+            sendTextMessage(sender, "🤖 " + text.substring(0, 200));
+            sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
         }
         else if(event.message && event.message.sticker_id){
             sendTextMessage(sender, "Trying to unlock the door... 🔐");
@@ -59,8 +62,6 @@ app.post('/webhook/', function (req, res) {
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 });
-
-
 
 async function unlockTheDoor(sender){
     let result = IP.findById(process.env.id, (err, res) => {
