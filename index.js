@@ -51,12 +51,12 @@ app.post('/webhook/', function (req, res) {
         console.log(event);
 	    if (event.message && event.message.text) {
             let text = event.message.text
-            sendTextMessage(sender, "Sorry, I am not smart yet to help you with that 😔");
-            sleep.sleep(1);
-            sendTextMessage(sender, "But I can ECHO your message 😄");
-            sleep.sleep(1);
+            //sendTextMessage(sender, "Sorry, I am not smart yet to help you with that 😔");
+            //sleep.sleep(1);
+            //sendTextMessage(sender, "But I can ECHO your message 😄");
+            //sleep.sleep(1);
             sendTextMessage(sender, "🤖 " + text.substring(0, 200));
-            sleep.sleep(1);
+            //sleep.sleep(1);
             sendTextMessage(sender, "Ok, I will not make jokes anymore 😶 Send me the (y) if you want me to unlock your door! 👍🏻🔓"); 
         }
         else if(event.message && event.message.sticker_id){
